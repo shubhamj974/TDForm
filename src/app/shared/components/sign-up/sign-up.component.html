@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-body">
+        <form action="" #signUp="ngForm" (ngSubmit)="onSignUp()">
+          <!-- <div ngModelGroup="userInfo"> -->
+          <div class="form-group">
+            <label for="userName">User Name</label>
+            <input
+              ngModel
+              #username="ngModel"
+              required
+              type="text"
+              class="form-control"
+              name="userName"
+              id="userName"
+            />
+          </div>
+          <small
+            *ngIf="username.invalid && username.touched"
+            class="d-block text-danger"
+            >Invalid username</small
+          >
+          <div class="form-group">
+            <label for="userEmail">Email</label>
+            <input
+              required
+              [(ngModel)]="inputData.userEmail"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              #userEmail="ngModel"
+              type="text"
+              class="form-control"
+              name="userEmail"
+              id="userEmail"
+            />
+          </div>
+          <ng-container
+            *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched)"
+          >
+            <small *ngIf="userEmail.errors?.['required']" class="text-danger"
+              >Email is required.</small
+            >
+
+            <small *ngIf="userEmail.errors?.['pattern']" class="text-danger"
+              >Please enter a valid email address.</small
+            >
+          </ng-container>
+
+          <!-- </div> -->
+          <div class="form-group">
+            <label for="secrateQue">Secret Que</label>
+            <select
+              required
+              ngModel
+              #secret="ngModel"
+              class="form-control"
+              name="secrateQue"
+              id="secrateQue"
+            >
+              <option value="favoritePlayer">Favorite Player</option>
+              <option value="favoriteComics">Favorite Comics</option>
+            </select>
+          </div>
+          <ng-container *ngIf="secret.invalid && secret.touched">
+            <small class="text-danger">This field required</small>
+          </ng-container>
+
+          <div class="form-group">
+            <label for="anwser">Anwser</label>
+            <textarea
+              #anwser="ngModel"
+              required
+              ngModel
+              class="form-control"
+              name="anwser"
+              id="anwser"
+              rows="3"
+              minlength="10"
+              maxlength="500"
+            ></textarea>
+          </div>
+          <ng-container
+            *ngIf="anwser.invalid && (anwser.dirty || anwser.touched)"
+          >
+            <small *ngIf="anwser.errors?.['required']" class="text-danger"
+              >Anwser is required.</small
+            >
+            <small *ngIf="anwser.errors?.['minlength']" class="text-danger">
+              Message must be at least 10 characters long.
+            </small>
+            <small *ngIf="anwser.errors?.['maxlength']" class="text-danger">
+              Message can't exceed 500 characters.
+            </small>
+          </ng-container>
+          <div class="form-check" *ngFor="let item of gender">
+            <label [for]="item.gen" class="form-check-label">
+              <input
+                ngModel
+                type="radio"
+                class="form-check-input"
+                name="UserGender"
+                [id]="item.gen"
+                [value]="item.gen"
+              />
+              {{ item.gen }}
+            </label>
+          </div>
+          <div class="form-check">
+            <label for="" class="form-check-label">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name=""
+                id=""
+                value="checkedValue"
+              />
+              Display value
+            </label>
+          </div>
+          <div class="text-right">
+            <button
+              type="button"
+              (click)="onEditForm()"
+              class="btn btn-primary mr-3"
+            >
+              Edit
+            </button>
+            <button
+              [disabled]="signUp.invalid"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Sign In
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
